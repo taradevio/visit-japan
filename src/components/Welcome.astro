@@ -1,6 +1,7 @@
 ---
 import 'leaflet/dist/leaflet.css';
 import list from '../assets/data/list.json';
+// import '../assets/global.css';
 ---
 
 <section>
@@ -18,8 +19,27 @@ import list from '../assets/data/list.json';
 	}).addTo(map);
 
 	function multipleMarkers() {
-		list.Fukuoka.map((item) => {
-			return marker = new L.marker([item.latitude, item.longitude]).bindPopup(item.title).addTo(map);
+		const pane = map.createPane("fixed", document.getElementById("map"));
+		list.Fukuoka.map(({latitude, longitude, image, title, link}) => {
+			const marker = L.marker([latitude, longitude])
+			.addTo(map);
+
+			const popup = L.popup({
+    			pane: "fixed",
+    			// className: "sidebar-popup",
+   				autoPan: true,
+  				}).setContent(`
+					<div class="fixed top-0 right-0 w-[450px]">
+						<h1>${title}</h1>
+						<div>
+							<img src=${image} alt=${title}>
+						</div>
+						<a href=${link}>${title}</a>
+					</div>
+				`);
+			
+				marker.bindPopup(popup)
+			
 		})
 	}
 
