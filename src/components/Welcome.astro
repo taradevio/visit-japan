@@ -10,7 +10,7 @@ import list from '../assets/data/list.json';
 </section>
 
 
-<script define:vars={{list}}>
+<script is:inline define:vars={{list}}>
 
 	document.addEventListener('DOMContentLoaded', () => {
 		const map = L.map('map').setView([32.764233, 129.872696], 10);
